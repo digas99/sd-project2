@@ -9,7 +9,7 @@ mkdir -p temp/dir$1 temp/dir$1/server temp/dir$1/server/main temp/dir$1/client t
 cp $SRCFILES/utils/Parameters.class temp/dir$1/server/main
 cp $SRCFILES/client/main/Client$1.class $SRCFILES/client/main/ConnectionData.class temp/dir$1/client/main
 cp $SRCFILES/client/entities/Thief.class $SRCFILES/client/entities/$1.class $SRCFILES/client/entities/$1States.class temp/dir$1/client/entities
-cp $SRCFILES/client/stubs/AssaultPartyStub*.class $SRCFILES/client/stubs/CollectionSiteStub*.class $SRCFILES/client/stubs/ConcentrationSiteStub*.class $SRCFILES/client/stubs/MuseumStub*.class temp/dir$1/client/stubs
+cp $SRCFILES/client/stubs/GeneralReposStub.class $SRCFILES/client/stubs/AssaultPartyStub*.class $SRCFILES/client/stubs/CollectionSiteStub*.class $SRCFILES/client/stubs/ConcentrationSiteStub*.class $SRCFILES/client/stubs/MuseumStub*.class temp/dir$1/client/stubs
 cp $SRCFILES/utils/*.class temp/dir$1/utils
 
 echo "Compressing execution environments for $1."

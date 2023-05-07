@@ -6,12 +6,13 @@ rm -rf temp/dir$1
 mkdir -p temp/dir$1 temp/dir$1/server temp/dir$1/server/main temp/dir$1/server/entities temp/dir$1/server/sharedRegions \
          temp/dir$1/client temp/dir$1/client/entities temp/dir$1/client/stubs temp/dir$1/utils
          
-cp $SRCFILES/utils/Parameters.class $SRCFILES/server/main/Server$1.class temp/dir$1/server/main
-cp $SRCFILES/server/entities/$1ClientProxy.class $SRCFILES/server/entities/ClientProxy.class temp/dir$1/server/entities
-cp $SRCFILES/server/sharedRegions/$1*.class temp/dir$1/server/sharedRegions
+cp $SRCFILES/server/main/ServerGeneralRepos.class $SRCFILES/utils/Parameters.class $SRCFILES/server/main/Server$1.class temp/dir$1/server/main
+cp $SRCFILES/server/entities/GeneralReposClientProxy.class $SRCFILES/server/entities/$1ClientProxy.class $SRCFILES/server/entities/ClientProxy.class temp/dir$1/server/entities
+cp $SRCFILES/server/sharedRegions/GeneralRepos.class $SRCFILES/server/sharedRegions/GeneralReposInterface.class $SRCFILES/server/sharedRegions/$1*.class temp/dir$1/server/sharedRegions
 cp $SRCFILES/client/entities/MasterThiefStates.class $SRCFILES/client/entities/OrdinaryThiefStates.class \
    temp/dir$1/client/entities
 cp $SRCFILES/utils/*.class temp/dir$1/utils
+cp $SRCFILES/client/stubs/GeneralReposStub.class temp/dir$1/client/stubs
 
 echo "Compressing execution environments for $1."
 rm -f  temp/dir$1.zip
