@@ -1,5 +1,6 @@
 package server.main;
 
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.AssaultPartyClientProxy;
 import server.entities.ClientProxy;
@@ -32,7 +33,7 @@ public class ServerCollectionSite {
     public static void main(String[] args) {
         CollectionSite collectionSite;
         CollectionSiteInterface collectionSiteInter;
-        // GeneralReposStub reposStub;
+        GeneralReposStub reposStub;
         ServerCom scon, sconi;
         int portNumber = -1;
         String reposServerName;
@@ -65,7 +66,8 @@ public class ServerCollectionSite {
             System.exit(1);
         }
 
-        collectionSite = new CollectionSite();
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumber);
+        collectionSite = new CollectionSite(reposStub);
         collectionSiteInter = new CollectionSiteInterface(collectionSite);
         scon = new ServerCom(portNumber);
         scon.start();

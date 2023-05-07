@@ -1,9 +1,6 @@
 package client.entities;
 
-import client.stubs.AssaultPartyStub;
-import client.stubs.CollectionSiteStub;
-import client.stubs.ConcentrationSiteStub;
-import client.stubs.MuseumStub;
+import client.stubs.*;
 import server.sharedRegions.*;
 
 public abstract class Thief extends Thread {
@@ -27,6 +24,8 @@ public abstract class Thief extends Thread {
      * Assault Party array that stores the assault parties of the thief
      */
     protected AssaultPartyStub[] assaultParties;
+
+    protected final GeneralReposStub repos;
 
     /**
      * Thief ID
@@ -79,6 +78,8 @@ public abstract class Thief extends Thread {
         return museum;
     }
 
+
+
     /**
      * THief constructor
      * @param threadName Thread name
@@ -88,7 +89,7 @@ public abstract class Thief extends Thread {
      * @param collectionSite Collection Site
      * @param assaultParties Assault Parties
      */
-    public Thief(String threadName, int id, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties) {
+    public Thief(String threadName, int id, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties,GeneralReposStub repos){
         super(threadName);
 
         this.thiefID = id;
@@ -96,6 +97,7 @@ public abstract class Thief extends Thread {
         this.concentrationSite = concentrationSite;
         this.collectionSite = collectionSite;
         this.assaultParties = assaultParties;
+        this.repos = repos;
     }
 
     @Override

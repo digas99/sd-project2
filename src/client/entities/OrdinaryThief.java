@@ -1,9 +1,6 @@
 package client.entities;
 
-import client.stubs.AssaultPartyStub;
-import client.stubs.CollectionSiteStub;
-import client.stubs.ConcentrationSiteStub;
-import client.stubs.MuseumStub;
+import client.stubs.*;
 import genclass.GenericIO;
 import server.sharedRegions.*;
 
@@ -22,6 +19,8 @@ public class OrdinaryThief extends Thief {
      */
     private final int displacement;
 
+    private GeneralReposStub repos;
+
     /**
      * Ordinary Thief Constructor
      * @param threadName Thread name
@@ -32,11 +31,13 @@ public class OrdinaryThief extends Thief {
      * @param assaultParties Assault Parties
      */
 
-    public OrdinaryThief(String threadName, int thiefID, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties){
-        super(threadName, thiefID, museum, concentrationSite, collectionSite, assaultParties);
+    public OrdinaryThief(String threadName, int thiefID, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties, GeneralReposStub repos){
+        super(threadName, thiefID, museum, concentrationSite, collectionSite, assaultParties,repos);
         thiefState = OrdinaryThiefStates.CONCENTRATION_SITE;
         displacement = random(MIN_DISPLACEMENT, MAX_DISPLACEMENT);
+        this.repos = repos;
         partyID = roomID = -1;
+        repos.setOrdinaryThiefDisplacement(thiefID, displacement);
     }
 
     @Override
@@ -65,6 +66,7 @@ public class OrdinaryThief extends Thief {
                 party.crawlOut(museum.getRoomDistance(roomID), displacement);
 
                 collectionSite.handACanvas(partyID, roomID, hasCanvas);
+                repos.setOrdinaryThiefSituation(getThiefID(), false);
             } else break;
         }
     }

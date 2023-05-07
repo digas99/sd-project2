@@ -10,7 +10,7 @@ public class GeneralRepos {
     /**
      *  Name of the logging file.
      */
-    private final String logFile;
+    private String logFile;
 
     /**
      * Ordinary Thief states.
@@ -120,7 +120,8 @@ public class GeneralRepos {
      * @param logFile name of the logging file.
      */
 
-    public GeneralRepos(String logFile) {
+    public GeneralRepos() {
+        this.logFile = "logging";
         ordinaryThiefStates = new int[N_THIEVES_ORDINARY];
         ordinaryThiefSituation = new char[N_THIEVES_ORDINARY];
         ordinaryThiefAssaultPartyID = new int[N_THIEVES_ORDINARY];
@@ -135,9 +136,6 @@ public class GeneralRepos {
             apRId[i] = -1;
         }
 
-        if ((logFile == null) || Objects.equals(logFile, ""))
-            this.logFile = "logging";
-        else this.logFile = logFile;
         ids = new int[N_THIEVES_ORDINARY];
         for (int i = 0; i < N_THIEVES_ORDINARY; i++) {
             ordinaryThiefStates[i] = OrdinaryThiefStates.CONCENTRATION_SITE;
@@ -169,6 +167,41 @@ public class GeneralRepos {
 
 
     }
+
+    /**
+     *   Operation initialization of simulation.
+     *
+     *   New operation.
+     *
+     *     @param logFile name of the logging file
+     */
+    public synchronized void initSimul (String logFile)
+    {
+        if (!Objects.equals (logFile, ""))
+            this.logFile = logFile;
+        reportInitialStatus ();
+    }
+
+    /**
+     *   Operation server shutdown.
+     *
+     *   New operation.
+     */
+
+    public synchronized void shutdown ()
+    {
+        TextFile log = new TextFile ();                      // instantiation of a text file handler
+
+        if (!log.openForAppending (".", logFile))
+        { GenericIO.writelnString ("The operation of creating the file " + logFile + " failed!");
+            System.exit (1);
+        }
+        if (!log.close ())
+        { GenericIO.writelnString ("The operation of closing the file " + logFile + " failed!");
+            System.exit (1);
+        }
+    }
+
 
     /**
      * Update the state of the ordinary thief t.

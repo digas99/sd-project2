@@ -286,4 +286,114 @@ public class MessageType {
      * Room set paint was done (reply)
      */
     public static final int SETROOMPAINTDONE = 71;
+
+    /**
+     * Update master thief state (service request)
+     */
+    public static final int UPMTSTATE = 72;
+
+    /**
+     * Update master thief state (reply)
+     */
+    public static final int UPMTSTATEDONE = 73;
+
+    /**
+     * Set ordinary thief displacement (service request)
+     */
+    public static final int SETOTDISP = 74;
+
+    /**
+     * Set ordinary thief displacement (reply)
+     */
+    public static final int SETOTDISPDONE = 75;
+
+    /**
+     * Set ordinary thief situation (service request)
+     */
+    public static final int SETOTSIT = 76;
+
+    /**
+     * Set ordinary thief situation (reply)
+     */
+    public static final int SETOTSITDONE = 77;
+
+    /**
+     * Set ordinary thief Assault Party Id (service request)
+     */
+    public static final int SETOTAPID = 78;
+
+    /**
+     * Set ordinary thief Assault Party Id (reply)
+     */
+    public static final int SETOTAPIDDONE = 79;
+
+    /**
+     * Set ordinary thief position (service request)
+     */
+    public static final int SETOTPOS = 80;
+
+    /**
+     * Set ordinary thief position (reply)
+     */
+    public static final int SETOTPOSDONE = 81;
+
+    /**
+     * Set ordinary thief Canvas (service request)
+     */
+    public static final int SETOTCANVAS = 82;
+
+    /**
+     * Set ordinary thief Canvas (reply)
+     */
+    public static final int SETOTCANVASDONE = 83;
+
+    /**
+     * Set the number of paintings in a room (service request)
+     */
+    public static final int SETNPAINTINGS = 84;
+
+    /**
+     * Set the number of paintings in a room (reply)
+     */
+    public static final int SETNPAINTINGSDONE = 85;
+
+    /**
+     * Set Assault Party id (service request)
+     */
+    public static final int SETAPID = 86;
+
+    /**
+     * Set Assault Party id (reply)
+     */
+    public static final int SETAPIDDONE = 87;
+
+    /**
+     * Set the number of canvas collected (service request)
+     */
+    public static final int SETNCANVAS = 88;
+
+    /**
+     * Set the number of canvas collected (reply)
+     */
+    public static final int SETNCANVASDONE = 89;
+
+    /**
+     * Print the results (service request)
+     */
+    public static final int PRINTSUMUP = 90;
+
+    /**
+     * Print the results (reply)
+     */
+    public static final int PRINTSUMUPDONE = 91;
+
+
+    public static final int SETOTSTATEDONE = 92;
+
+    public static final  int SETDISTTOROOM = 93;
+
+    public static final  int SETDISTTOROOMDONE = 94;
+
+
+
 }

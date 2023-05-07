@@ -1,5 +1,6 @@
 package server.main;
 
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.ConcentrationSiteClientProxy;
 import server.sharedRegions.ConcentrationSite;
@@ -28,7 +29,7 @@ public class ServerConcentrationSite {
     public static void main(String[] args) {
         ConcentrationSite concentrationSite;
         ConcentrationSiteInterface concentrationSiteInter;
-        // GeneralReposStub reposStub;
+        GeneralReposStub reposStub;
         ServerCom scon, sconi;
         int portNumber = -1;
         String reposServerName;
@@ -61,7 +62,8 @@ public class ServerConcentrationSite {
             System.exit(1);
         }
 
-        concentrationSite = new ConcentrationSite();
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumber);
+        concentrationSite = new ConcentrationSite(reposStub);
         concentrationSiteInter = new ConcentrationSiteInterface(concentrationSite);
         scon = new ServerCom(portNumber);
         scon.start();

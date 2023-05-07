@@ -1,10 +1,16 @@
 package server.sharedRegions;
 
 import client.entities.MasterThiefStates;
+import client.entities.OrdinaryThief;
 import client.entities.OrdinaryThiefStates;
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.AssaultPartyClientProxy;
 import server.main.ServerAssaultParty;
+import utils.*;
+import server.*;
+import client.*;
+
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -51,6 +57,8 @@ public class AssaultParty {
     */
    private int nEntities;
 
+   private final GeneralReposStub repos;
+
    /**
     * Get the ID of the Assault Party.
     *
@@ -95,8 +103,9 @@ public class AssaultParty {
     *
     * @param id ID of the Assault Party
     */
-   public AssaultParty(int id) {
+   public AssaultParty(int id, GeneralReposStub repos) {
       this.id = id;
+      this.repos = repos;
       master = new AssaultPartyClientProxy[N_THIEVES_MASTER];
       for (int i = 0; i < N_THIEVES_MASTER; i++)
          master[i] = null;
@@ -122,6 +131,7 @@ public class AssaultParty {
       masterId = ((AssaultPartyClientProxy) Thread.currentThread()).getMasterId();
       master[masterId] = (AssaultPartyClientProxy) Thread.currentThread();
       master[masterId].setMasterState(MasterThiefStates.DECIDING_WHAT_TO_DO);
+      repos.updateMasterThiefState(MasterThiefStates.DECIDING_WHAT_TO_DO);
 
       begin = true;
       notifyAll();
@@ -138,12 +148,15 @@ public class AssaultParty {
       ordinary[ordinaryId].setOrdinaryState(OrdinaryThiefStates.CRAWLING_OUTWARDS);
       getThief(ordinaryId).isAtGoal(false);
       inRoom++;
+      repos.setOrdinaryThiefState(ordinaryId, OrdinaryThiefStates.CRAWLING_OUTWARDS);
+
 
       // if last thief reaching room, set begin to true and notify all
       if (inRoom == N_THIEVES_PER_PARTY) {
          begin = true;
          notifyAll();
       }
+
    }
 
    private boolean sleep(int thiefID) {
@@ -171,6 +184,7 @@ public class AssaultParty {
       thiefID = ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId();
       ordinary[thiefID] = (AssaultPartyClientProxy) Thread.currentThread();
       ordinary[thiefID].setOrdinaryState(OrdinaryThiefStates.CRAWLING_INWARDS);
+      repos.setOrdinaryThiefState(thiefID, OrdinaryThiefStates.CRAWLING_INWARDS);
 
        if (nextThiefID == -1) {
            logger(this, "Reset");
@@ -190,7 +204,11 @@ public class AssaultParty {
            //GenericIO.writelnString(getThiefPosition(thiefID)+"is the position of thief "+thiefID);
        } while(crawl(thiefID, displacement, 0, roomDistance));
 
+       repos.setDistanceToRoom(thiefID, 0);
        ordinary[thiefID].setOrdinaryState(OrdinaryThiefStates.AT_A_ROOM);
+       repos.setOrdinaryThiefState(thiefID, OrdinaryThiefStates.AT_A_ROOM);
+       repos.setOrdinaryThiefAssaultPartyId(thiefID, id);
+
    }
 
    /**
@@ -202,6 +220,7 @@ public class AssaultParty {
       int thiefID;
       thiefID = ((AssaultPartyClientProxy) Thread.currentThread()).getOrdinaryId();
       ordinary[thiefID].setOrdinaryState(OrdinaryThiefStates.CRAWLING_OUTWARDS);
+      repos.setOrdinaryThiefState(thiefID, OrdinaryThiefStates.CRAWLING_OUTWARDS);
 
        do {
            // wait until master says to begin
@@ -218,6 +237,7 @@ public class AssaultParty {
        getThief(thiefID).isAtGoal(false);
 
        ordinary[thiefID].setOrdinaryState(OrdinaryThiefStates.COLLECTION_SITE);
+       repos.setOrdinaryThiefState(thiefID, OrdinaryThiefStates.COLLECTION_SITE);
    }
 
    /**
@@ -285,7 +305,9 @@ public class AssaultParty {
    private void updateThiefPosition(int thiefID, int move, boolean backwards) {
       int thiefPos = getThiefPosition(thiefID);
       int newPos = !backwards ? thiefPos + move : thiefPos - move;
+      repos.setOrdinaryThiefPosition(thiefID, newPos);
       setThiefPosition(thiefID, newPos);
+      repos.setOrdinaryThiefPosition(thiefID, newPos);
    }
 
    /**

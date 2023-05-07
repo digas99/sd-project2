@@ -104,6 +104,13 @@ public class Message implements Serializable {
      */
     private int roomTotalPaintings = -1;
 
+    private boolean ordinaryThiefSituation = false;
+
+    private int ordinaryThiefPosition = -1;
+
+    private int nCanvas = -1;
+
+
     /**
      * Message instantiation
      *
@@ -131,6 +138,20 @@ public class Message implements Serializable {
             this.ordinaryThiefState = state;
         }
     }
+
+    /**
+     * Message instantiation
+     * @param type
+     * @param fName
+     */
+
+    public Message(int type, String fName) {
+        this.msgType = type;
+        this.fName = fName;
+    }
+
+
+
 
     /**
      * Get message type.
@@ -350,6 +371,28 @@ public class Message implements Serializable {
         this.roomTotalPaintings = roomTotalPaintings;
     }
 
+    public void setOrdinaryThiefSituation(boolean ordinaryThiefSituation) {
+        this.ordinaryThiefSituation = ordinaryThiefSituation;
+    }
+    public boolean getOrdinaryThiefSituation() {
+        return ordinaryThiefSituation;
+    }
+
+    public void setOrdinaryThiefPosition(int ordinaryThiefPosition) {
+        this.ordinaryThiefPosition = ordinaryThiefPosition;
+    }
+
+    public int getOrdinaryThiefPosition() {
+        return ordinaryThiefPosition;
+    }
+
+    public void setnCanvas(int nCanvas) {
+        this.nCanvas = nCanvas;
+    }
+
+    public int getnCanvas() {
+        return nCanvas;
+    }
     /**
      * Printing the values of the internal fields.
      *

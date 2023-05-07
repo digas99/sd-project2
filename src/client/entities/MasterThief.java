@@ -1,9 +1,6 @@
 package client.entities;
 
-import client.stubs.AssaultPartyStub;
-import client.stubs.CollectionSiteStub;
-import client.stubs.ConcentrationSiteStub;
-import client.stubs.MuseumStub;
+import client.stubs.*;
 import genclass.GenericIO;
 import server.sharedRegions.*;
 import utils.MemException;
@@ -26,10 +23,12 @@ public class MasterThief extends Thief {
      * @param assaultParties AssaultParty array
      */
 
-    public MasterThief(String threadName, int thiefID, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties) {
-        super(threadName, thiefID, museum, concentrationSite, collectionSite, assaultParties);
+
+    public MasterThief(String threadName, int thiefID, MuseumStub museum, ConcentrationSiteStub concentrationSite, CollectionSiteStub collectionSite, AssaultPartyStub[] assaultParties, GeneralReposStub repos) {
+        super(threadName, thiefID, museum, concentrationSite, collectionSite, assaultParties,repos);
         setThiefState(MasterThiefStates.PLANNING_HEIST);
     }
+
 
     /**
      * Life cycle of the Master Thief

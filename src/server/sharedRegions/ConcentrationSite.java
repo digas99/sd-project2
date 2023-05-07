@@ -1,6 +1,7 @@
 package server.sharedRegions;
 
 import client.entities.*;
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.ConcentrationSiteClientProxy;
 import server.main.ServerCollectionSite;
@@ -35,6 +36,8 @@ public class ConcentrationSite {
      * Number of entity groups requesting the shutdown
      */
     private int nEntities;
+
+    private final GeneralReposStub repos;
 
     /**
      * Checks the number of thieves inside the concentration site
@@ -113,7 +116,8 @@ public class ConcentrationSite {
     * ConcentrationSite constructor
     * No relevant parameters are passed to the constructor but many of the variables are initialized
     */
-    public ConcentrationSite() {
+    public ConcentrationSite(GeneralReposStub repos) {
+        this.repos = repos;
         master = new ConcentrationSiteClientProxy[N_THIEVES_MASTER];
         for (int i = 0; i < N_THIEVES_MASTER; i++)
             master[i] = null;

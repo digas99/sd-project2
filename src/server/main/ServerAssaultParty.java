@@ -1,9 +1,9 @@
 package server.main;
 
 import genclass.GenericIO;
-import server.entities.AssaultPartyClientProxy;
-import server.sharedRegions.AssaultParty;
-import server.sharedRegions.AssaultPartyInterface;
+import server.entities.*;
+import server.sharedRegions.*;
+import client.stubs.*;
 import utils.ServerCom;
 
 import java.net.SocketTimeoutException;
@@ -28,11 +28,12 @@ public class ServerAssaultParty {
     public static void main(String[] args) {
         AssaultParty party;
         AssaultPartyInterface partyInter;
-        // GeneralReposStub reposStub;
+        GeneralReposStub reposStub;
         ServerCom scon, sconi;
         int portNumber = -1;
         String reposServerName;
         int reposPortNumber = -1;
+        int id = -1;
 
         if (args.length != 3) {
             GenericIO.writelnString("Wrong number of parameters!");
@@ -61,7 +62,8 @@ public class ServerAssaultParty {
             System.exit(1);
         }
 
-        party = new AssaultParty(1);
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumber);
+        party = new AssaultParty(id, reposStub);
         partyInter = new AssaultPartyInterface(party);
         scon = new ServerCom(portNumber);
         scon.start();

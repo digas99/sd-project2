@@ -2,6 +2,7 @@ package server.sharedRegions;
 
 import client.entities.OrdinaryThief;
 import client.entities.OrdinaryThiefStates;
+import client.stubs.GeneralReposStub;
 import server.main.ServerCollectionSite;
 import server.main.ServerMuseum;
 import server.entities.CollectionSiteClientProxy;
@@ -29,15 +30,19 @@ public class Museum {
      */
     private final Room[] rooms = new Room[N_ROOMS];
 
+    private final GeneralReposStub repos;
+
     /**
      * Museum constructor
      */
-    public Museum() {
+    public Museum(GeneralReposStub repos) {
+        this.repos = repos;
         ordinary = new MuseumClientProxy[N_THIEVES_ORDINARY];
         for (int i = 0; i < N_THIEVES_ORDINARY; i++)
             ordinary[i] = null;
         for (int i = 0; i < rooms.length; i++) {
             rooms[i] = new Room(i);
+            repos.setnPaintings(i, rooms[i].getTotalPaintings());
         }
     }
 
@@ -67,6 +72,7 @@ public class Museum {
         else
             logger(ordinary, "Rolled a canvas from " + room + ". " + room.getPaintings() + "/"+ room.getTotalPaintings() +" left");
 
+        repos.setOrdinaryThiefCanvas(ordinaryId, hasCanvas);
         return hasCanvas;
     }
 

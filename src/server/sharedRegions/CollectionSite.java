@@ -4,6 +4,7 @@ import client.entities.MasterThief;
 import client.entities.MasterThiefStates;
 import client.entities.OrdinaryThief;
 import client.entities.OrdinaryThiefStates;
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.CollectionSiteClientProxy;
 import server.main.ServerAssaultParty;
@@ -69,6 +70,8 @@ public class CollectionSite {
      */
     private int nEntities;
 
+    private final GeneralReposStub repos;
+
     /**
      * Checks the number of thieves inside the collection site
      * @return the number of thieves
@@ -104,7 +107,8 @@ public class CollectionSite {
     /**
      * Collection on Site Constructor
      */
-    public CollectionSite() {
+    public CollectionSite(GeneralReposStub repos) {
+        this.repos = repos;
         master = new CollectionSiteClientProxy[N_THIEVES_MASTER];
         for (int i = 0; i < N_THIEVES_MASTER; i++)
             master[i] = null;
@@ -292,6 +296,8 @@ public class CollectionSite {
 
         notifyAll();
         logger(this, "The heist is over! Were collected " + canvas + " canvas.");
+        repos.setnCanvas(canvas);
+        repos.printSumUp();
     }
 
     /**

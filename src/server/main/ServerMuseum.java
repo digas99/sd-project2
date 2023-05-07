@@ -1,5 +1,6 @@
 package server.main;
 
+import client.stubs.GeneralReposStub;
 import genclass.GenericIO;
 import server.entities.ConcentrationSiteClientProxy;
 import server.entities.MuseumClientProxy;
@@ -31,7 +32,7 @@ public class ServerMuseum {
     public static void main(String[] args) {
         Museum museum;
         MuseumInterface museumInter;
-        // GeneralReposStub reposStub;
+        GeneralReposStub reposStub;
         ServerCom scon, sconi;
         int portNumber = -1;
         String reposServerName;
@@ -64,7 +65,8 @@ public class ServerMuseum {
             System.exit(1);
         }
 
-        museum = new Museum();
+        reposStub = new GeneralReposStub(reposServerName, reposPortNumber);
+        museum = new Museum(reposStub);
         museumInter = new MuseumInterface(museum);
         scon = new ServerCom(portNumber);
         scon.start();

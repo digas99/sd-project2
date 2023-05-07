@@ -14,4 +14,8 @@ public class ConnectionData {
 
     public static final String MUSEUM_MACHINE = "localhost";
     public static final int MUSEUM_PORT = 22009;
+
+    public static final String GENERAL_REPOS_MACHINE = "localhost";
+
+    public static final int GENERAL_REPOS_PORT = 22011;
 }

@@ -1,11 +1,9 @@
 package client.main;
 
 import client.entities.OrdinaryThief;
-import client.stubs.AssaultPartyStub;
-import client.stubs.CollectionSiteStub;
-import client.stubs.ConcentrationSiteStub;
-import client.stubs.MuseumStub;
+import client.stubs.*;
 import genclass.GenericIO;
+import server.sharedRegions.GeneralRepos;
 
 import static client.main.ConnectionData.*;
 import static utils.Parameters.*;
@@ -30,6 +28,7 @@ public class ClientOrdinaryThief
         CollectionSiteStub collectionSiteStub;
         ConcentrationSiteStub concentrationSiteStub;
         MuseumStub museumStub;
+        GeneralReposStub repos;
 
         /* problem initialization */
 
@@ -38,10 +37,12 @@ public class ClientOrdinaryThief
         collectionSiteStub = new CollectionSiteStub(COLLECTION_SITE_MACHINE, COLLECTION_SITE_PORT);
         concentrationSiteStub = new ConcentrationSiteStub(CONCENTRATION_SITE_MACHINE, CONCENTRATION_SITE_PORT);
         museumStub = new MuseumStub(MUSEUM_MACHINE, MUSEUM_PORT);
+        repos = new GeneralReposStub(GENERAL_REPOS_MACHINE, GENERAL_REPOS_PORT);
+
 
         /* init master thieves */
         for (int i = 0; i < N_THIEVES_ORDINARY; i++)
-            ordinary[i] = new OrdinaryThief("Ordinary_"+i, i, museumStub, concentrationSiteStub, collectionSiteStub, assaultPartyStub);
+            ordinary[i] = new OrdinaryThief("Ordinary_"+i, i, museumStub, concentrationSiteStub, collectionSiteStub, assaultPartyStub, repos);
 
         /* start of the simulation */
 
@@ -67,6 +68,7 @@ public class ClientOrdinaryThief
         assaultPartyStub[1].shutDown();
         collectionSiteStub.shutDown();
         concentrationSiteStub.shutDown();
+        repos.shutDown();
         museumStub.shutDown();
     }
 }
