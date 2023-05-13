@@ -63,3 +63,8 @@ $ sudo apt-get install sshpass
 ### Contributors
 * [Diogo Correia](https://github.com/digas99) (90327): diogo.correia99@ua.pt
 * [Lara Rodrigues](https://github.com/Lararodrigues1) (93427): laravieirarodrigues@ua.pt
+
+### Related Projects from this course
+* [**sd-project1:** Pure concurrent implementation of the problem running in a single platform.](https://github.com/digas99/sd-project1)
+* **sd-project2:** Distributed implementation of the problem, based on message passing, running in multiple platforms.
+* [**sd-project3:** Distributed implementation of the problem, based on method invocation on remote objects, running in multiple platforms.](https://github.com/digas99/sd-project3)
